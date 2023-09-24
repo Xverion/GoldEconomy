@@ -20,22 +20,21 @@ public class Converter {
     }
 
     public int getValue(Material material) {
-        if (material.equals(Material.GOLD_NUGGET)) return 1;
-        if (material.equals(Material.GOLD_INGOT)) return 9;
-        if (material.equals(Material.GOLD_BLOCK)) return 81;
+        if (material.equals(Material.getMaterial("THE_VAULT_VAULT_BRONZE"))) return 1;
+        if (material.equals(Material.getMaterial("THE_VAULT_VAULT_SILVER"))) return 9;
+        if (material.equals(Material.getMaterial("THE_VAULT_VAULT_GOLD"))) return 81;
+        if (material.equals(Material.getMaterial("THE_VAULT_VAULT_PLATINUM"))) return 729;
 
         return 0;
     }
 
     public boolean isNotGold(Material material) {
-        switch(material) {
-            case GOLD_BLOCK:
-            case GOLD_INGOT:
-            case GOLD_NUGGET:
-                return false;
-            default:
-                return true;
-        }
+        if (material.equals(Material.getMaterial("THE_VAULT_VAULT_BRONZE"))) return false;
+        if (material.equals(Material.getMaterial("THE_VAULT_VAULT_SILVER"))) return false;
+        if (material.equals(Material.getMaterial("THE_VAULT_VAULT_GOLD"))) return false;
+        if (material.equals(Material.getMaterial("THE_VAULT_VAULT_PLATINUM"))) return false;
+
+        else return true;
     }
 
     public int getInventoryValue(Player player){
@@ -86,9 +85,19 @@ public class Converter {
     public void give(Player player, int value){
         boolean warning = false;
 
-        HashMap<Integer, ItemStack> blocks = player.getInventory().addItem(new ItemStack(Material.GOLD_BLOCK, value/81));
-        for (ItemStack item : blocks.values()) {
-            if (item != null && item.getType() == Material.GOLD_BLOCK && item.getAmount() > 0) {
+        HashMap<Integer, ItemStack> plat = player.getInventory().addItem(new ItemStack(Material.getMaterial("THE_VAULT_VAULT_PLATINUM"), value/729));
+        for (ItemStack item : plat.values()) {
+            if (item != null && item.getType() == Material.getMaterial("THE_VAULT_VAULT_PLATINUM") && item.getAmount() > 0) {
+                player.getWorld().dropItem(player.getLocation(), item);
+                warning = true;
+            }
+        }
+
+        value -= (value/729)*729;
+
+        HashMap<Integer, ItemStack> gold = player.getInventory().addItem(new ItemStack(Material.getMaterial("THE_VAULT_VAULT_GOLD"), value/81));
+        for (ItemStack item : gold.values()) {
+            if (item != null && item.getType() == Material.getMaterial("THE_VAULT_VAULT_GOLD") && item.getAmount() > 0) {
                 player.getWorld().dropItem(player.getLocation(), item);
                 warning = true;
             }
@@ -96,9 +105,9 @@ public class Converter {
 
         value -= (value/81)*81;
 
-        HashMap<Integer, ItemStack> ingots = player.getInventory().addItem(new ItemStack(Material.GOLD_INGOT, value/9));
-        for (ItemStack item : ingots.values()) {
-            if (item != null && item.getType() == Material.GOLD_INGOT && item.getAmount() > 0) {
+        HashMap<Integer, ItemStack> silver = player.getInventory().addItem(new ItemStack(Material.getMaterial("THE_VAULT_VAULT_SILVER"), value/9));
+        for (ItemStack item : silver.values()) {
+            if (item != null && item.getType() == Material.getMaterial("THE_VAULT_VAULT_SILVER") && item.getAmount() > 0) {
                 player.getWorld().dropItem(player.getLocation(), item);
                 warning = true;
             }
@@ -106,9 +115,9 @@ public class Converter {
 
         value -= (value/9)*9;
 
-        HashMap<Integer, ItemStack> nuggets = player.getInventory().addItem(new ItemStack(Material.GOLD_NUGGET, value));
-        for (ItemStack item : nuggets.values()) {
-            if (item != null && item.getType() == Material.GOLD_NUGGET && item.getAmount() > 0) {
+        HashMap<Integer, ItemStack> bronze = player.getInventory().addItem(new ItemStack(Material.getMaterial("THE_VAULT_VAULT_BRONZE"), value));
+        for (ItemStack item : bronze.values()) {
+            if (item != null && item.getType() == Material.getMaterial("THE_VAULT_VAULT_BRONZE") && item.getAmount() > 0) {
                 player.getWorld().dropItem(player.getLocation(), item);
                 warning = true;
             }

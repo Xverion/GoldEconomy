@@ -5,6 +5,7 @@ import com.palmergames.bukkit.towny.object.TownBlockType;
 import de.leonhard.storage.Yaml;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import redempt.redlib.commandmanager.CommandHook;
@@ -83,6 +84,8 @@ public class Commands {
     public void deposit(CommandSender commandSender, String nuggets){
         Player player = (Player) commandSender;
 
+        if(!player.getWorld().getEnvironment().equals(World.Environment.NORMAL)) return;
+
         if (isBankingRestrictedToPlot(player)) return;
         if (nuggets == null) {
             Util.sendMessageToPlayer(bundle.getString("help.deposit"), player);
@@ -108,6 +111,8 @@ public class Commands {
     @CommandHook("withdraw")
     public void withdraw(CommandSender commandSender, String nuggets){
         Player player = (Player) commandSender;
+
+        if(!player.getWorld().getEnvironment().equals(World.Environment.NORMAL)) return;
 
         if (isBankingRestrictedToPlot(player)) {
             return;
@@ -135,6 +140,11 @@ public class Commands {
     public void set(CommandSender commandSender, OfflinePlayer target, int gold){
         if (commandSender instanceof Player) {
             Player player = (Player) commandSender;
+
+            if(!player.isOp()){
+                return;
+            }
+
             Util.sendMessageToPlayer(String.format(bundle.getString("info.sender.moneyset"), target.getName(), gold), player);
         }
 
@@ -148,6 +158,10 @@ public class Commands {
         if (commandSender instanceof Player) {
             Player player = (Player) commandSender;
             Util.sendMessageToPlayer(String.format(bundle.getString("info.sender.addmoney"), gold, target.getName()), player);
+
+            if(!player.isOp()){
+                return;
+            }
         }
 
         eco.depositPlayer(target, gold);
@@ -159,6 +173,10 @@ public class Commands {
         if (commandSender instanceof Player) {
             Player player = (Player) commandSender;
             Util.sendMessageToPlayer(String.format(bundle.getString("info.sender.remove"), gold, target.getName()), player);
+
+            if(!player.isOp()){
+                return;
+            }
         }
 
         eco.withdrawPlayer(target, gold);

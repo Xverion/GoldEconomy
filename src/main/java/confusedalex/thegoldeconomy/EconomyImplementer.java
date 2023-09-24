@@ -30,7 +30,7 @@ public class EconomyImplementer implements Economy {
 
     @Override
     public String getName() {
-        return "TheGoldEconomy";
+        return "TheVaultEconomy";
     }
 
     @Override
@@ -45,17 +45,17 @@ public class EconomyImplementer implements Economy {
 
     @Override
     public String format(double v) {
-        return v + " Gold";
+        return v + " Bronze";
     }
 
     @Override
     public String currencyNamePlural() {
-        return "Gold";
+        return "Bronze";
     }
 
     @Override
     public String currencyNameSingular() {
-        return "Gold";
+        return "Bronze";
     }
 
     @Override

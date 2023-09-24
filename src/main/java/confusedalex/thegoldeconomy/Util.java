@@ -19,7 +19,7 @@ public class Util {
 
     public static void sendMessageToPlayer(String message, Player player){
         if (player == null) return;
-        player.sendMessage(ChatColor.GOLD + "[TheGoldEconomy] " + ChatColor.WHITE + ChatColor.translateAlternateColorCodes('&', message));
+        player.sendMessage(ChatColor.GOLD + "[TheVaultEconomy] " + ChatColor.WHITE + ChatColor.translateAlternateColorCodes('&', message));
     }
 
 }

@@ -51,7 +51,7 @@ public final class TheGoldEconomy extends JavaPlugin {
         new CommandParser(this.getResource("commands.rdcml"))
                 .setArgTypes(offlinePlayer)
                 .parse()
-                .register("TheGoldEconomy",
+                .register("TheVaultEconomy",
                 new Commands(bundle, eco, configFile));
 
         // Event class registering
