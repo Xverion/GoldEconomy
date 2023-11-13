@@ -44,7 +44,7 @@ public class Bank {
 
     public void setBalance(String uuid, int balance){
         if (playerBank.containsKey(uuid)) playerBank.put(uuid, balance);
-        else if (balanceFile.contains(uuid)) balanceFile.set(uuid, balance);
+        if (balanceFile.contains(uuid)) balanceFile.set(uuid, balance);
         else if (fakeAccounts.containsKey(uuid))  fakeAccounts.put(uuid, balance);
         else if (fakeAccountsFile.contains(uuid))  fakeAccountsFile.set(uuid, balance);
 
